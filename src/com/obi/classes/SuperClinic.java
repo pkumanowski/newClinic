@@ -3,40 +3,45 @@ package com.obi.classes;
 import com.obi.worker.DateComparator;
 import com.obi.worker.Functions;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SuperClinic {
 
-    public static Scheduler data = new Scheduler();
+    private List<Patient> pList = new ArrayList<Patient>();
+    private List<Doctor> dList = new ArrayList<Doctor>();
 
-    private static Map<Integer, Patient> pMap = new HashMap<Integer, Patient>(); //creates Patients table object
-    private static Map<Integer, Doctor> dMap = new HashMap<Integer, Doctor>(); //creates Doctors table object
+    private static Map<Integer, Patient> pMap = new HashMap<Integer, Patient>(); //creates Patients map
+    private static Map<Integer, Doctor> dMap = new HashMap<Integer, Doctor>(); //creates Doctors map
 
-    public static void makePatientMap(List<Patient> pList)
-    {
-        for (Patient p: pList)
-        {
-            pMap.put(p.getID(), p);
+
+    public void addPatient(Patient p) {
+        pList.add(p);
+    }
+
+    public void addDoctor(Doctor d) {
+        dList.add(d);
+    }
+
+    public void removeDoctor(Doctor doc) {
+        for (Doctor d : dList) {
+            if (doc.equals(d)) {
+                dList.remove(d);
+            }
         }
     }
 
-    public static void makeDoctorMap(List<Doctor> dList)
-    {
-        for (Doctor d: dList)
-        {
-            dMap.put(d.getID(), d);
+    public void removePatient(Patient pat) {
+        for (Patient p : pList) {
+            if (pat.equals(p)) {
+                pList.remove(p);
+            }
         }
     }
 
-    public static void printAllVisits(List<Visit<Integer, Integer>> a)
-    {
+    public static void printAllVisits(List<Visit<Integer, Integer>> a) {
         Collections.sort(a, new DateComparator<Integer, Integer>());
-        for (Visit<Integer, Integer> v: a)
-        {
-            System.out.println("Visit Data:       " + Functions.dateToString(v.getVisitDate(), "MMMM dd, yyyy"));
+        for (Visit<Integer, Integer> v : a) {
+            System.out.println("Visit Date:       " + Functions.dateToString(v.getVisitDate(), "MMMM dd, yyyy"));
             System.out.println("Doctor                         " + dMap.get(v.getHost()).getName() + " " + dMap.get(v.getHost()).getName());
             System.out.println("Specialty:                     " + dMap.get(v.getHost()).getSpecialty());
             System.out.println("Days Until Visit:       " + Functions.daysUntil(v.getVisitDate()));

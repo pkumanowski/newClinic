@@ -14,6 +14,12 @@ public class Patient extends PersonAbstract {
     public int getPatientID() {
         return patientID;
     }
+
+    @Override
+    public int getID() {
+        return patientID;
+    }
+
     public String toString()
     {
         return super.toString() + ", ID=" + patientID;

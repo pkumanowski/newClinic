@@ -2,6 +2,8 @@ package com.obi.classes;
 
 import com.obi.worker.MedicalSpecialty;
 
+import java.util.ArrayList;
+
 public class Doctor extends PersonAbstract {
 
     private MedicalSpecialty specialty;
